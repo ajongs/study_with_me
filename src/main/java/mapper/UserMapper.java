@@ -7,6 +7,7 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
+    void signUp(User user);
     List<User> getAllUsers();
     User getUser(int class_no);
     void insert(User user);

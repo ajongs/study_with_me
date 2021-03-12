@@ -5,15 +5,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.UserMapper">
+
     <select id="getAllUsers" resultType="domain.User">
         select * from testdb.user
     </select>
     <select id="getUser" resultType="domain.User">
         select * from testdb.user where class_no=#{class_no}
     </select>
+    <insert id="signUp" parameterType="domain.User">
+        insert into testdb.user(seq, class_no, name, major, field, id, pw)
+        values(null, #{class_no}, #{name}, #{major} , #{field}, #{id}, #{pw})
+    </insert>
     <insert id="insert" parameterType="domain.User">
         insert into testdb.user(seq, class_no, name, major, field, id, pw)
-        values(null, #{class_no}, #{name}, #{major} , #{field}, #{id}, #{pw});
+        values(null, #{class_no}, #{name}, #{major} , #{field}, #{id}, #{pw})
     </insert>
     <update id="update" parameterType="domain.User">
         update testdb.user
@@ -24,4 +29,5 @@
         delete from testdb.user
         where class_no = #{class_no}
     </delete>
+
 </mapper>

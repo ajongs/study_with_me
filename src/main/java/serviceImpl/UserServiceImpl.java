@@ -2,6 +2,7 @@ package serviceImpl;
 
 import domain.User;
 import mapper.UserMapper;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,6 +15,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper usermapper;
+
+    @Override
+    public void signUp(User user){
+        //비밀번호 암호화
+        user.setPw(BCrypt.hashpw(user.getPw(), BCrypt.gensalt()));
+        usermapper.signUp(user);
+    }
+
     @Override
     public List<User> getAllUsers() {
         return usermapper.getAllUsers();
