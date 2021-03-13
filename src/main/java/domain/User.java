@@ -1,12 +1,22 @@
 package domain;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class User {
     private int seq;
+    @NotNull
     private int class_no;
+    @NotBlank(message = "이름을 입력하지 않았습니다.")
     private String name;
+    @NotBlank
     private String major;
+    @NotBlank
     private String field;
+    @NotBlank
     private String id;
+    @NotBlank
     private String pw;
 
     public int getSeq() {
