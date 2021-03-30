@@ -16,5 +16,6 @@
     <context:component-scan base-package="mapper"/>
     <context:component-scan base-package="serviceImpl"/>
     <context:component-scan base-package="aop"/>
+    <context:component-scan base-package="util"/>
     <aop:aspectj-autoproxy/>
 </beans>

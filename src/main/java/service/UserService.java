@@ -4,9 +4,11 @@ import domain.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     void signUp(User user);
+    Map<String, String> login(User user);
     public List<User> getAllUsers();
     User getUser(int class_no);
     void insert(User user);

@@ -25,7 +25,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value="/sign-up", method=RequestMethod.POST)
-    public ResponseEntity signUp(@RequestBody @Valid User user, BindingResult bindingResult){
+    public ResponseEntity signUp(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception{
         if(bindingResult.hasErrors()){
             Message message = new Message();
 //            HttpHeaders httpHeaders = new HttpHeaders();
@@ -38,6 +38,11 @@ public class UserController {
         }
         userService.signUp(user);
         return new ResponseEntity(HttpStatus.OK);
+    }
+    @ResponseBody
+    @RequestMapping(value="/login", method=RequestMethod.POST)
+    public ResponseEntity login(@RequestBody @Valid User user) throws Exception{
+        return new ResponseEntity(userService.login(user), HttpStatus.OK);
     }
 
     @ResponseBody
