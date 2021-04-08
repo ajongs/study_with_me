@@ -10,7 +10,7 @@ public interface UserService {
     void signUp(User user);
     Map<String, String> login(User user);
     public List<User> getAllUsers();
-    User getUser(int class_no);
+    User getUser(String id);
     void insert(User user);
     void update(User user);
     void delete(User user);

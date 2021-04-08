@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 @Aspect
@@ -31,12 +32,15 @@ public class LoggerAspect {
             String controllerName = proceedingJoinPoint.getSignature().getDeclaringType().getSimpleName();
             String methodName = proceedingJoinPoint.getSignature().getName();
 
+            String requestBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
             Map<String, Object> params = new HashMap<>();
 
             try {
                 params.put("controller", controllerName);
                 params.put("method", methodName);
-                params.put("params", getParams(request));
+                //params.put("params", getParams(request));
+                params.put("param", request.getQueryString());
+                params.put("requestBody", requestBody);
                 params.put("log_time", new Date());
                 params.put("request_uri", request.getRequestURI());
                 params.put("http_method", request.getMethod());

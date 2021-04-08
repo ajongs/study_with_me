@@ -10,7 +10,7 @@
         select * from testdb.user
     </select>
     <select id="getUser" resultType="domain.User">
-        select * from testdb.user where class_no=#{class_no}
+        select * from testdb.user where id=#{id}
     </select>
     <insert id="signUp" parameterType="domain.User">
         insert into testdb.user(seq, class_no, name, major, field, id, pw)

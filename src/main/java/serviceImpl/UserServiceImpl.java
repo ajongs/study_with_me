@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, String> login(User user) {
         //암호 체크
-        User db = usermapper.getUser(user.getClass_no());
+        User db = usermapper.getUser(user.getId());
         if(!BCrypt.checkpw(user.getPw(), db.getPw())){
             throw new unauthenticateException();
         }
@@ -49,8 +49,8 @@ public class UserServiceImpl implements UserService {
         return usermapper.getAllUsers();
     }
 
-    public User getUser(int class_no){
-        return usermapper.getUser(class_no);
+    public User getUser(String id){
+        return usermapper.getUser(id);
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
