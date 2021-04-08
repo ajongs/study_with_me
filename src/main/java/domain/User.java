@@ -1,21 +1,23 @@
 package domain;
 
+import annotation.ValidationGroups;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class User {
     private int seq;
-    @NotNull
+    @NotNull(groups = {ValidationGroups.signIn.class})
     private int class_no;
-    @NotBlank(message = "이름을 입력하지 않았습니다.")
+    @NotBlank(message = "이름을 입력하지 않았습니다.", groups = {ValidationGroups.signIn.class})
     private String name;
-    @NotBlank
+    @NotBlank(groups = {ValidationGroups.signIn.class})
     private String major;
-    @NotBlank
+    @NotBlank(groups = {ValidationGroups.signIn.class})
     private String field;
-    @NotBlank
+    @NotBlank(groups = {ValidationGroups.signIn.class, ValidationGroups.logIn.class})
     private String id;
-    @NotBlank
+    @NotBlank(groups = {ValidationGroups.signIn.class, ValidationGroups.logIn.class})
     private String pw;
 
     public int getSeq() {

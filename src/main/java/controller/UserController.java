@@ -1,5 +1,6 @@
 package controller;
 
+import annotation.ValidationGroups;
 import domain.User;
 import enums.ErrorEnum;
 import message.Message;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import service.UserService;
 
@@ -25,7 +27,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value="/sign-up", method=RequestMethod.POST)
-    public ResponseEntity signUp(@RequestBody @Valid User user, BindingResult bindingResult) throws Exception{
+    public ResponseEntity signUp(@RequestBody @Validated(ValidationGroups.signIn.class) User user, BindingResult bindingResult) throws Exception{
         if(bindingResult.hasErrors()){
             Message message = new Message();
 //            HttpHeaders httpHeaders = new HttpHeaders();
@@ -41,24 +43,26 @@ public class UserController {
     }
     @ResponseBody
     @RequestMapping(value="/login", method=RequestMethod.POST)
-    public ResponseEntity login(@RequestBody @Valid User user) throws Exception{
+    public ResponseEntity login(@RequestBody @Validated(ValidationGroups.logIn.class) User user) throws Exception{
         return new ResponseEntity(userService.login(user), HttpStatus.OK);
     }
+
+
 
     @ResponseBody
     @RequestMapping(value="/users" , method = RequestMethod.GET)
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
-    @ResponseBody
-    @RequestMapping(value="/users/{class_no}" , method = RequestMethod.GET)
-    public User getUser(@PathVariable int class_no){
-        return userService.getUser(class_no);
-    }
+//    @ResponseBody
+//    @RequestMapping(value="/users/{class_no}" , method = RequestMethod.GET)
+//    public User getUser(@PathVariable int class_no){
+//        return userService.getUser(class_no);
+//    }
     @ResponseBody
     @RequestMapping(value="/users" , method = RequestMethod.POST)
-    public void insert(@RequestBody User user){
-        userService.insert(user);
+    public void insert(){
+        //userService.insert(user);
     }
     @ResponseBody
     @RequestMapping(value="/users" , method = RequestMethod.PUT)
