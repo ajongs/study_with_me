@@ -6,3 +6,4 @@
 #### 20210331 login 기능 추가/ Jwt 토큰 발급 기능 
 #### 20210408 @Validated로 변경
 #### 20210408 getUser user id로 받아오도록 변경
+#### 20210625 @ExceptionHandler 추가
