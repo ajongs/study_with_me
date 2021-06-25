@@ -40,7 +40,8 @@ public class UserServiceImpl implements UserService {
         }
         //로그인 성공시 토큰 생성
         Map<String, String> token = new HashMap<>();
-        token.put("access_token",jwt.createToken(user));
+        token.put("access_Token",jwt.createToken(user, "access_Token"));
+        token.put("refresh_Token", jwt.createToken(user, "refresh_Token"));
         return token;
     }
 

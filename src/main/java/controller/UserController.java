@@ -1,8 +1,10 @@
 package controller;
 
+import annotation.Auth;
 import annotation.ValidationGroups;
 import domain.User;
 import enums.ErrorEnum;
+import exception.unauthenticateException;
 import message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,8 +17,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import service.UserService;
 
-import javax.validation.Valid;
-import java.nio.charset.Charset;
 import java.util.List;
 
 @Controller
@@ -47,31 +47,17 @@ public class UserController {
         return new ResponseEntity(userService.login(user), HttpStatus.OK);
     }
 
-
+    @Auth
+    @ResponseBody
+    @RequestMapping(value="/check", method=RequestMethod.POST)
+    public String test(){
+        return "access possible.";
+    }
 
     @ResponseBody
     @RequestMapping(value="/users" , method = RequestMethod.GET)
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
-//    @ResponseBody
-//    @RequestMapping(value="/users/{class_no}" , method = RequestMethod.GET)
-//    public User getUser(@PathVariable int class_no){
-//        return userService.getUser(class_no);
-//    }
-    @ResponseBody
-    @RequestMapping(value="/users" , method = RequestMethod.POST)
-    public void insert(){
-        //userService.insert(user);
-    }
-    @ResponseBody
-    @RequestMapping(value="/users" , method = RequestMethod.PUT)
-    public void update(@RequestBody User user){
-        userService.update(user);
-    }
-    @ResponseBody
-    @RequestMapping(value="/users" , method = RequestMethod.DELETE)
-    public void delete(@RequestBody User user){
-        userService.delete(user);
-    }
+
 }

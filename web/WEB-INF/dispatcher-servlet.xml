@@ -18,4 +18,11 @@
     <context:component-scan base-package="aop"/>
     <context:component-scan base-package="util"/>
     <aop:aspectj-autoproxy/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="interceptor.AuthInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
