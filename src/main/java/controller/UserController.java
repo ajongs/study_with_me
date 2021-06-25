@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -52,6 +53,14 @@ public class UserController {
     @RequestMapping(value="/check", method=RequestMethod.POST)
     public String test(){
         return "access possible.";
+    }
+
+    @Auth
+    @ResponseBody
+    @RequestMapping(value = "/refresh", method = RequestMethod.POST)
+    public ResponseEntity refresh(HttpServletRequest request){
+        String refreshToken = request.getHeader("Authorization");
+        return new ResponseEntity(userService.refresh(refreshToken), HttpStatus.OK);
     }
 
     @ResponseBody

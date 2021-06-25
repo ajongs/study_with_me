@@ -1,9 +1,12 @@
 package util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.User;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.Base64UrlCodec;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,7 +16,7 @@ import java.util.Map;
 public class JwtTokenProvider {
     private String key = "secretKey";
 
-    public String createToken(User user, String subject){
+    public String createToken(String id, String subject){
         Calendar cal = Calendar.getInstance();
         if(subject.equals("access_Token")){
             cal.add(Calendar.MINUTE, 2);
@@ -24,7 +27,7 @@ public class JwtTokenProvider {
         }
 
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("id", user.getId());
+        payloads.put("id", id);
 
         Claims claims = Jwts.claims(payloads)
                 .setSubject(subject)
@@ -43,7 +46,7 @@ public class JwtTokenProvider {
         if(!JwtToken.isEmpty()){
             try{
                 Claims claims = Jwts.parser().setSigningKey(this.key.getBytes()).parseClaimsJws(JwtToken).getBody();
-                if(claims.getSubject().equals("access_Token")){
+                if(claims.getSubject().equals("access_Token")|| claims.getSubject().equals("refresh_Token")){
                     return true;
                 }
             } catch(SignatureException e){ //서명 불일치
@@ -59,4 +62,18 @@ public class JwtTokenProvider {
         return false;
     }
 
+    public Map<String, Object> getTokenPayload(String token){
+        //TODO 페이로드 리턴
+        //TODO Base64URL로 decode 한 후 payload 리턴
+        String[] splitToken = token.split("\\.");
+        //string.split은 정규표현식 사용 .은 메타문자로 사용댐 --> .을 일반문자로 사용하기 위해 escape 문자인 \\필요
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> payload = null;
+        try {
+            payload = objectMapper.readValue(Base64UrlCodec.BASE64URL.decode(splitToken[1]), Map.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return payload;
+    }
 }

@@ -34,16 +34,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, String> login(User user) {
         //암호 체크
-        User db = usermapper.getUser(user.getId());
+        String id = user.getId();
+        User db = usermapper.getUser(id);
         if(!BCrypt.checkpw(user.getPw(), db.getPw())){
             throw new unauthenticateException();
         }
         //로그인 성공시 토큰 생성
         Map<String, String> token = new HashMap<>();
-        token.put("access_Token",jwt.createToken(user, "access_Token"));
-        token.put("refresh_Token", jwt.createToken(user, "refresh_Token"));
+        token.put("access_Token",jwt.createToken(id, "access_Token"));
+        token.put("refresh_Token", jwt.createToken(id, "refresh_Token"));
         return token;
     }
+
+    public Map<String, Object> refresh(String refreshToken){
+        //ToDO 여기서 해야 할것
+        //TODO refresh 토큰 확인(완료) --> token의 payload에서 id값 가져오기 --> 새로운 access Token, Refresh 토큰을 생성 후 return(완료)
+        if(refreshToken==null || !jwt.validateToken(refreshToken)){
+            throw new unauthenticateException();
+        }
+        Map<String, Object> payload = jwt.getTokenPayload(refreshToken);
+        Object id = payload.get("id");
+
+        Map<String, Object> newToken = new HashMap<>();
+        newToken.put("access_Token", jwt.createToken(id.toString(), "access_Token"));
+        newToken.put("refresh_Token", jwt.createToken(id.toString(), "refresh_Token"));
+        return newToken;
+    }
+
 
     @Override
     public List<User> getAllUsers() {
