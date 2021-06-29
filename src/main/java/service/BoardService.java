@@ -12,7 +12,7 @@ public interface BoardService {
     //게시글 등록
     public int insertBoard(Board board) throws Exception;
     //게시글 수정
-    public int updateBoard(Board board) throws Exception;
+    public int modifyBoard(Board board, int seq) throws Exception;
     //게시글 삭제
     public int deleteBoard(int board_seq) throws Exception;
 }

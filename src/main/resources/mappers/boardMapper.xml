@@ -5,81 +5,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.BoardMapper" >
-    <select id="getBoardList" resultType="domain.Board">
-        SELECT BOARD_SEQ
-             , BOARD_RE_REF
-             , BOARD_RE_LEV
-             , BOARD_RE_SEQ
-             , BOARD_WRITER
-             , BOARD_SUBJECT
-             , BOARD_CONTENT
-             , BOARD_HITS
-             , DEL_YN
-             , INS_USER_ID
-             , INS_DATE
-             , UPD_USER_ID
-             , UPD_DATE
-        FROM TESTDB.BOARD
+    <select id="getBoardList">
+        SELECT
+            *
+        FROM
+            testdb.board
     </select>
-    <select id="getBoardDetail" parameterType="int" resultType="domain.Board">
-        select SELECT BOARD_SEQ
-                , BOARD_RE_REF
-                , BOARD_RE_LEV
-                , BOARD_RE_SEQ
-                , BOARD_WRITER
-                , BOARD_SUBJECT
-                , BOARD_CONTENT
-                , BOARD_HITS
-                , DEL_YN
-                , INS_USER_ID
-                , INS_DATE
-                , UPD_USER_ID
-                , UPD_DATE
-        FROM TESTDB.BOARD
-        WHERE BOARD_SEQ = #{board_seq}
+    <select id="getUserId" resultType="String">
+        SELECT
+            ins_user_id
+        FROM
+            testdb.board
+        WHERE
+            board_seq=#{seq}
     </select>
-    <insert id="insertBoard">
-        insert into testdb.board(
-                                  BOARD_RE_REF
-                                , BOARD_RE_LEV
-                                , BOARD_RE_SEQ
-                                , BOARD_WRITER
-                                , BOARD_SUBJECT
-                                , BOARD_CONTENT
-                                , INS_USER_ID
-                                , INS_DATE
-                                , UPD_USER_ID
-                                , UPD_DATE
-        ) values(
-                    #{board_re_ref},
-                    #{board_re_lev},
-                    #{board_re_seq},
-                    #{board_writer},
-                    #{board_subject},
-                    #{board_content},
-                    #{board_hits},
-                    #{del_yn},
-                    #{ins_user_id},
-                    now()
-                        #{upd_user_id},
-                    now()
-                )
-
-    </insert>
-
     <update id="updateBoard" parameterType="domain.Board">
-        UPDATE TESTDB.BOARD
-        SET BOARD_SUBJECT = #{board_subject}
-          ,BOARD_CONTENT = #{board_content}
-          ,UPD_USER_ID = #{upd_user_id}
-          ,UPD_DATE = NOW()
-        WHERE BOARD_SEQ = #{board_seq}
+        UPDATE
+            testdb.board
+        SET
+            board_subject = #{board_subject},
+            board_content = #{board_content},
+            upd_date = now()
+        WHERE
+            board_seq=#{board_seq}
     </update>
-
-    <delete id="deleteBoard" parameterType="int">
-
-        DELETE FROM TESTDB.BOARD
-        WHERE BOARD_SEQ = #{borad_seq}
-
-    </delete>
 </mapper>

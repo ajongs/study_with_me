@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import service.UserService;
 import util.JwtTokenProvider;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,22 +49,30 @@ public class UserServiceImpl implements UserService {
         return token;
     }
 
-    public Map<String, Object> refresh(String refreshToken){
+    public Map<String, Object> refresh(){
         //ToDO 여기서 해야 할것
-        //TODO refresh 토큰 확인(완료) --> token의 payload에서 id값 가져오기 --> 새로운 access Token, Refresh 토큰을 생성 후 return(완료)
-        if(refreshToken==null || !jwt.validateToken(refreshToken)){
-            throw new unauthenticateException();
-        }
-        Map<String, Object> payload = jwt.getTokenPayload(refreshToken);
-        Object id = payload.get("id");
+        //TODO refreshToken의 payload에서 id값 가져오기 --> 새로운 access Token, Refresh 토큰을 생성 후 return(완료)
+        String id = getUserId();
 
         Map<String, Object> newToken = new HashMap<>();
         newToken.put("access_Token", jwt.createToken(id.toString(), "access_Token"));
         newToken.put("refresh_Token", jwt.createToken(id.toString(), "refresh_Token"));
         return newToken;
     }
+    @Override
+    public String getUserId(){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String token = request.getHeader("Authorization");
 
-
+        //토큰 유효성 검사
+        if(token==null || !jwt.validateToken(token)){
+            throw new unauthenticateException();
+        }
+        //token id 값 가져오기
+        Map<String, Object> payload = jwt.getTokenPayload(token);
+        String token_id = payload.get("id").toString();
+        return token_id;
+    }
     @Override
     public List<User> getAllUsers() {
         return usermapper.getAllUsers();

@@ -65,12 +65,12 @@ public class JwtTokenProvider {
     public Map<String, Object> getTokenPayload(String token){
         //TODO 페이로드 리턴
         //TODO Base64URL로 decode 한 후 payload 리턴
-        String[] splitToken = token.split("\\.");
+        String splitToken = token.split("\\.")[1];
         //string.split은 정규표현식 사용 .은 메타문자로 사용댐 --> .을 일반문자로 사용하기 위해 escape 문자인 \\필요
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> payload = null;
         try {
-            payload = objectMapper.readValue(Base64UrlCodec.BASE64URL.decode(splitToken[1]), Map.class);
+            payload = objectMapper.readValue(Base64UrlCodec.BASE64URL.decode(splitToken), Map.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -58,9 +58,8 @@ public class UserController {
     @Auth
     @ResponseBody
     @RequestMapping(value = "/refresh", method = RequestMethod.POST)
-    public ResponseEntity refresh(HttpServletRequest request){
-        String refreshToken = request.getHeader("Authorization");
-        return new ResponseEntity(userService.refresh(refreshToken), HttpStatus.OK);
+    public ResponseEntity refresh(){
+        return new ResponseEntity(userService.refresh(), HttpStatus.OK);
     }
 
     @ResponseBody
