@@ -29,4 +29,25 @@
         WHERE
             board_seq=#{board_seq}
     </update>
+    <insert id="insertBoard" parameterType="domain.Board">
+        INSERT INTO
+            testdb.board(
+                         board_subject,
+                         board_content,
+                         board_writer,
+                         ins_user_id,
+                         ins_date)
+        VALUES
+            (#{board_subject},
+             #{board_content},
+             #{board_writer},
+             #{ins_user_id},
+             now())
+    </insert>
+    <delete id="deleteBoard" parameterType="int">
+        DELETE FROM
+            testdb.board
+        WHERE
+            board_seq = #{seq}
+    </delete>
 </mapper>

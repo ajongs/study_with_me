@@ -24,30 +24,28 @@ public class BoardController {
         return new ResponseEntity(boardService.getBoardList(), HttpStatus.OK);
     }
 
-    //글 수정
+    //게시물 수정
     @Auth
     @ResponseBody
     @RequestMapping(value = "/board/{seq}", method = RequestMethod.PUT, produces = "application/json;charset=utf8")
-    public String modifyBoard(@RequestBody Board board, @PathVariable int seq) throws Exception {
-        if(boardService.modifyBoard(board, seq)==1)
-            return "정상적으로 변경 되었습니다.";
-        else
-            return "오류!!!...";
+    public ResponseEntity modifyBoard(@RequestBody Board board, @PathVariable int seq) throws Exception {
+        boardService.modifyBoard(board, seq);
+        return new ResponseEntity("수정되었습니다.", HttpStatus.OK);
     }
-    //글 삭제
+    //게시물 삭제
     @Auth
     @ResponseBody
     @RequestMapping(value="/board/{seq}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteBoard(@PathVariable int seq){
-
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity deleteBoard(@PathVariable int seq) throws Exception{
+        boardService.deleteBoard(seq);
+        return new ResponseEntity("삭제되었습니다.",HttpStatus.OK);
     }
-    //글 등록
+    //게시물 등록
     @Auth
     @ResponseBody
     @RequestMapping(value = "/board", method = RequestMethod.POST)
-    public ResponseEntity insertBoard(Board board){
-
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity insertBoard(@RequestBody Board board) throws Exception{
+        boardService.insertBoard(board);
+        return new ResponseEntity("게시물이 등록되었습니다.",HttpStatus.OK);
     }
 }

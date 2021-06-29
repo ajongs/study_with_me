@@ -1,22 +1,16 @@
 package serviceImpl;
 
 import domain.Board;
+import exception.UnAuthorizedException;
 import mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import service.BoardService;
 import service.UserService;
 import util.JwtTokenProvider;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional(readOnly=true)
@@ -39,33 +33,38 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int insertBoard(Board board) throws Exception {
-        return 0;
+    public void insertBoard(Board board) throws Exception {
+        boardMapper.insertBoard(board);
     }
 
     @Override
-    public int modifyBoard(Board board, int seq) throws Exception {
+    public void modifyBoard(Board board, int seq) throws Exception {
 
         //token id 값 가져오기
         String token_id = userService.getUserId();
-        //System.out.println("token_id : " + token_id);
 
         String writer_id = boardMapper.getUserId(seq);
-        //System.out.println("writer_id : "+writer_id);
 
         if(token_id.equals(writer_id)){
             board.setBoard_seq(seq);
             boardMapper.updateBoard(board);
-            return 1;
+            return;
         }
         else{
-            return 0;
-            //예외처리 해야함, token id값 다를경우
+            throw new UnAuthorizedException();
         }
     }
 
     @Override
-    public int deleteBoard(int board_seq) throws Exception {
-        return 0;
+    public void deleteBoard(int seq) throws Exception {
+        String token_id = userService.getUserId();
+        String writer_id = boardMapper.getUserId(seq);
+
+        if(token_id.equals(writer_id)){
+            boardMapper.deleteBoard(seq);
+            return;
+        }
+        else
+            throw new UnAuthorizedException();
     }
 }
