@@ -13,4 +13,5 @@ public interface BoardMapper {
     public void updateBoard(Board board);
     public String getUserId(int board_seq);
     public void deleteBoard(int board_seq);
+    public void sortSequence();
 }

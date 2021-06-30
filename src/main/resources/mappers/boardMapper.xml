@@ -50,4 +50,5 @@
         WHERE
             board_seq = #{seq}
     </delete>
+
 </mapper>

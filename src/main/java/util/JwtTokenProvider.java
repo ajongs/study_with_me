@@ -44,19 +44,10 @@ public class JwtTokenProvider {
 
     public Boolean validateToken(String JwtToken){
         if(!JwtToken.isEmpty()){
-            try{
-                Claims claims = Jwts.parser().setSigningKey(this.key.getBytes()).parseClaimsJws(JwtToken).getBody();
-                if(claims.getSubject().equals("access_Token")|| claims.getSubject().equals("refresh_Token")){
-                    return true;
-                }
-            } catch(SignatureException e){ //서명 불일치
-                System.out.println("Invalid signature " + e);
-            } catch(ExpiredJwtException e){ //만료
-                System.out.println("Expired JWT Token " + e);
-            } catch(UnsupportedJwtException e){ //JWT 형식 불일치
-                System.out.println("Unsupported JWT token : "+e);
-            } catch(MalformedJwtException e){ //jwt 구성이 올바르지 않을때
-                System.out.println("Invalid JWT Token " + e);
+            Claims claims = Jwts.parser().setSigningKey(this.key.getBytes()).parseClaimsJws(JwtToken).getBody();
+            //예외 발생시 ExceptionController에서 전역적으로 명시한 오류를 처리함.
+            if(claims.getSubject().equals("access_Token")|| claims.getSubject().equals("refresh_Token")){
+                return true;
             }
         }
         return false;

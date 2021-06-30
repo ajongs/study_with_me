@@ -33,12 +33,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
         String accessToken = request.getHeader("Authorization");
-        Boolean result = jwt.validateToken(accessToken);
-        if(!result){
-            System.out.println("토큰 불일치");
-            throw new unauthenticateException();
-            //return false;
-        }
+        //jwt 유효성 검사 오류시 예외 발생, return 되지않아 컨트롤러 실행x
+        jwt.validateToken(accessToken);
 
         return true;
     }

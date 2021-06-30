@@ -29,5 +29,4 @@
         delete from testdb.user
         where class_no = #{class_no}
     </delete>
-
 </mapper>
