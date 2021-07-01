@@ -10,9 +10,7 @@ public class Board {
     private String board_subject;
     @NotNull
     private String board_content;
-    @NotNull
     private String board_writer;
-    @NotNull
     private String ins_user_id;
     private Timestamp ins_date;
     private Timestamp upd_date;

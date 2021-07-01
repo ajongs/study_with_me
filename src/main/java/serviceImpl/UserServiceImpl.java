@@ -44,23 +44,32 @@ public class UserServiceImpl implements UserService {
         }
         //로그인 성공시 토큰 생성
         Map<String, String> token = new HashMap<>();
-        token.put("access_Token",jwt.createToken(id, "access_Token"));
-        token.put("refresh_Token", jwt.createToken(id, "refresh_Token"));
+        String nickname = db.getNickname();
+        token.put("access_Token",jwt.createToken(id, nickname,"access_Token"));
+        token.put("refresh_Token", jwt.createToken(id, nickname,"refresh_Token"));
         return token;
     }
 
     public Map<String, Object> refresh(){
         //ToDO 여기서 해야 할것
-        //TODO refreshToken의 payload에서 id값 가져오기 --> 새로운 access Token, Refresh 토큰을 생성 후 return(완료)
-        String id = getUserId();
+        //TODO refreshToken의 payload에서 id값,nickname 가져오기 --> 새로운 access Token, Refresh 토큰을 생성 후 return(완료)
+        Map<String, Object> payload = getTokenPayload();
+        String id = payload.get("id").toString();
+        String nickname = payload.get("nickname").toString();
 
         Map<String, Object> newToken = new HashMap<>();
-        newToken.put("access_Token", jwt.createToken(id.toString(), "access_Token"));
-        newToken.put("refresh_Token", jwt.createToken(id.toString(), "refresh_Token"));
+        newToken.put("access_Token", jwt.createToken(id, nickname,"access_Token"));
+        newToken.put("refresh_Token", jwt.createToken(id, nickname, "refresh_Token"));
         return newToken;
     }
     @Override
     public String getUserId(){
+        Map<String, Object> payload = getTokenPayload();
+        String token_id = payload.get("id").toString();
+        return token_id;
+    }
+    @Override
+    public Map<String, Object> getTokenPayload(){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String token = request.getHeader("Authorization");
 
@@ -68,10 +77,7 @@ public class UserServiceImpl implements UserService {
         if(token==null || !jwt.validateToken(token)){
             throw new unauthenticateException();
         }
-        //token id 값 가져오기
-        Map<String, Object> payload = jwt.getTokenPayload(token);
-        String token_id = payload.get("id").toString();
-        return token_id;
+        return jwt.getTokenPayload(token);
     }
     @Override
     public List<User> getAllUsers() {

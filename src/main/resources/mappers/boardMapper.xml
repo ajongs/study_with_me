@@ -50,5 +50,12 @@
         WHERE
             board_seq = #{seq}
     </delete>
-
+    <select id="getBoardWriter" parameterType="String" resultType="String">
+        SELECT
+            board_writer
+        FROM
+            testdb.board
+        WHERE
+            ins_user_id = #{id}
+    </select>
 </mapper>

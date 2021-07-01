@@ -3,6 +3,7 @@ package serviceImpl;
 import domain.Board;
 import exception.UnAuthorizedException;
 import mapper.BoardMapper;
+import mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import service.UserService;
 import util.JwtTokenProvider;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly=true)
@@ -22,6 +24,8 @@ public class BoardServiceImpl implements BoardService {
     UserService userService;
     @Autowired
     BoardMapper boardMapper;
+    @Autowired
+    UserMapper userMapper;
     @Override
     public List<Board> getBoardList() throws Exception {
         return boardMapper.getBoardList();
@@ -34,6 +38,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void insertBoard(Board board) throws Exception {
+        Map<String, Object> payload = userService.getTokenPayload();
+        String userId = payload.get("id").toString();
+        String BoardWriter = payload.get("nickname").toString();
+
+        board.setIns_user_id(userId);
+        board.setBoard_writer(BoardWriter);
         boardMapper.insertBoard(board);
     }
 
@@ -42,11 +52,11 @@ public class BoardServiceImpl implements BoardService {
 
         //token id 값 가져오기
         String token_id = userService.getUserId();
-
+        //해당 게시판을 올린 id 가져오기
         String writer_id = boardMapper.getUserId(seq);
-
-        if(token_id.equals(writer_id)){
-            board.setBoard_seq(seq);
+        //각 id값 비교
+        if(token_id.equals(writer_id)){ //같다면
+            board.setBoard_seq(seq);  //board 객체에
             boardMapper.updateBoard(board);
             return;
         }
@@ -67,4 +77,5 @@ public class BoardServiceImpl implements BoardService {
         else
             throw new UnAuthorizedException();
     }
+
 }

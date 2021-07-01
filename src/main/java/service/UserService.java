@@ -9,9 +9,10 @@ import java.util.Map;
 public interface UserService {
     void signUp(User user);
     Map<String, String> login(User user);
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
     public Map<String, Object> refresh();
     public String getUserId();
+    public Map<String, Object> getTokenPayload();
     User getUser(String id);
     void insert(User user);
     void update(User user);

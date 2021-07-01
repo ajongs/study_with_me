@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserMapper {
     void signUp(User user);
     List<User> getAllUsers();
-    User getUser(String class_no);
+    User getUser(String id);
     void insert(User user);
     void update(User user);
     void delete(User user);

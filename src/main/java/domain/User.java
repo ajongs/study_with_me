@@ -12,6 +12,8 @@ public class User {
     @NotBlank(message = "이름을 입력하지 않았습니다.", groups = {ValidationGroups.signIn.class})
     private String name;
     @NotBlank(groups = {ValidationGroups.signIn.class})
+    private String nickname;
+    @NotBlank(groups = {ValidationGroups.signIn.class})
     private String major;
     @NotBlank(groups = {ValidationGroups.signIn.class})
     private String field;
@@ -74,5 +76,13 @@ public class User {
 
     public void setPw(String pw) {
         this.pw = pw;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

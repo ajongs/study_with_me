@@ -16,7 +16,7 @@ import java.util.Map;
 public class JwtTokenProvider {
     private String key = "secretKey";
 
-    public String createToken(String id, String subject){
+    public String createToken(String id, String nickname, String subject){
         Calendar cal = Calendar.getInstance();
         if(subject.equals("access_Token")){
             cal.add(Calendar.MINUTE, 2);
@@ -28,6 +28,7 @@ public class JwtTokenProvider {
 
         Map<String, Object> payloads = new HashMap<>();
         payloads.put("id", id);
+        payloads.put("nickname", nickname);
 
         Claims claims = Jwts.claims(payloads)
                 .setSubject(subject)
