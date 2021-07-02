@@ -19,7 +19,6 @@ import java.util.Map;
 public class BoardServiceImpl implements BoardService {
     @Autowired
     JwtTokenProvider jwt;
-
     @Autowired
     UserService userService;
     @Autowired
@@ -57,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
         //각 id값 비교
         if(token_id.equals(writer_id)){ //같다면
             board.setBoard_seq(seq);  //board 객체에
-            boardMapper.updateBoard(board);
+            boardMapper.updateBoard(board); //board에 id나 nickname 추가할 필요없음
             return;
         }
         else{
@@ -77,5 +76,4 @@ public class BoardServiceImpl implements BoardService {
         else
             throw new UnAuthorizedException();
     }
-
 }
