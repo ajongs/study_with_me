@@ -1,7 +1,9 @@
 package service;
 
 import domain.Board;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface BoardService {
@@ -15,4 +17,6 @@ public interface BoardService {
     public void modifyBoard(Board board, int seq) throws Exception;
     //게시글 삭제
     public void deleteBoard(int board_seq) throws Exception;
+    //파일 업로드
+    public void uploadFile(MultipartFile file) throws IOException;
 }

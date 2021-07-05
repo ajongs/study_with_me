@@ -2,15 +2,22 @@ package controller;
 
 import annotation.Auth;
 import domain.Board;
+import exception.NotFoundFileException;
 import mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import service.BoardService;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Controller
 public class BoardController {
@@ -47,5 +54,11 @@ public class BoardController {
     public ResponseEntity insertBoard(@RequestBody Board board) throws Exception{
         boardService.insertBoard(board);
         return new ResponseEntity("게시물이 등록되었습니다.",HttpStatus.OK);
+    }
+    //이미지, 파일 업로드
+    @ResponseBody
+    @RequestMapping(value="/board/image", method = RequestMethod.POST)
+    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        boardService.uploadFile(file);
     }
 }

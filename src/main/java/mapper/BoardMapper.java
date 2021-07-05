@@ -14,4 +14,5 @@ public interface BoardMapper {
     public String getUserId(int board_seq);
     public void deleteBoard(int board_seq);
     public String getBoardWriter(String id);
+    public void uploadFile(String fileName);
 }

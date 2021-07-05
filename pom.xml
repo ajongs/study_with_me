@@ -82,6 +82,11 @@
             <artifactId>commons-io</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>RELEASE</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -106,6 +111,7 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
+
     </dependencies>
 
 </project>
