@@ -23,6 +23,7 @@ import java.util.Map;
 @Service
 @Transactional(readOnly=true)
 public class BoardServiceImpl implements BoardService {
+    public static String prefixPath = "/upload/";
     @Autowired
     JwtTokenProvider jwt;
     @Autowired
@@ -81,7 +82,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void uploadFile(MultipartFile file) throws IOException {
+    public String uploadFile(MultipartFile file) throws IOException {
 
         StringBuilder sb = new StringBuilder();
         Date date = new Date();
@@ -93,11 +94,11 @@ public class BoardServiceImpl implements BoardService {
             sb.append(date.getTime());
             sb.append(file.getOriginalFilename());
         }
+        String url = prefixPath+sb.toString();
         if(!file.isEmpty()){
-            File dest = new File("/upload/"+sb.toString());
+            File dest = new File(url);
             file.transferTo(dest);
-            //TODO mapper 로 Board DB에 이미지 URL(경로)만 저장
-            boardMapper.uploadFile(dest.getPath());
         }
+        return url;
     }
 }

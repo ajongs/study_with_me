@@ -18,5 +18,5 @@ public interface BoardService {
     //게시글 삭제
     public void deleteBoard(int board_seq) throws Exception;
     //파일 업로드
-    public void uploadFile(MultipartFile file) throws IOException;
+    public String uploadFile(MultipartFile file) throws IOException;
 }

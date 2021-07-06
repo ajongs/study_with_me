@@ -58,7 +58,9 @@ public class BoardController {
     //이미지, 파일 업로드
     @ResponseBody
     @RequestMapping(value="/board/image", method = RequestMethod.POST)
-    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-        boardService.uploadFile(file);
+    public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        return new ResponseEntity(boardService.uploadFile(file), HttpStatus.OK);
     }
+    //이미지, 파일 다운로드
+    //조회수 증가 api
 }

@@ -15,6 +15,9 @@ public class Board {
     private Timestamp ins_date;
     private Timestamp upd_date;
     private int hit;
+    private String image;
+
+
 
     public int getBoard_seq() {
         return board_seq;
@@ -78,5 +81,13 @@ public class Board {
 
     public void setHit(int hit) {
         this.hit = hit;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

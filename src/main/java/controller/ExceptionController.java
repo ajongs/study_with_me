@@ -1,6 +1,7 @@
 package controller;
 
 import enums.ErrorEnum;
+import exception.NotFoundFileException;
 import exception.UnAuthorizedException;
 import exception.unauthenticateException;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -39,5 +40,9 @@ public class ExceptionController {
     @ExceptionHandler(MalformedJwtException.class)
     public @ResponseBody ResponseEntity MalformedException(MalformedJwtException e){
         return new ResponseEntity(ErrorEnum.MALFORMED, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(NotFoundFileException.class)
+    public @ResponseBody ResponseEntity NotFoundFileException(NotFoundFileException e){
+        return new ResponseEntity(ErrorEnum.NOTFOUNDFILE, HttpStatus.BAD_REQUEST);
     }
 }
