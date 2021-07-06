@@ -36,13 +36,15 @@
                          board_content,
                          board_writer,
                          ins_user_id,
-                         ins_date)
+                         ins_date,
+                         image)
         VALUES
             (#{board_subject},
              #{board_content},
              #{board_writer},
              #{ins_user_id},
-             now())
+             now(),
+             #{image})
     </insert>
     <delete id="deleteBoard" parameterType="int">
         DELETE FROM
