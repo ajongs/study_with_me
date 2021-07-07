@@ -5,6 +5,7 @@ import domain.Comment;
 import exception.NotFoundFileException;
 import exception.UnAuthorizedException;
 import mapper.BoardMapper;
+import mapper.CommentMapper;
 import mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional(readOnly=true)
+//@Transactional(readOnly=true)
 public class BoardServiceImpl implements BoardService {
     public static String prefixPath = "/upload/";
     @Autowired
@@ -32,6 +33,8 @@ public class BoardServiceImpl implements BoardService {
     BoardMapper boardMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    CommentMapper commentMapper;
     @Override
     public List<Board> getBoardList() throws Exception {
         return boardMapper.getBoardList();
@@ -118,7 +121,7 @@ public class BoardServiceImpl implements BoardService {
         comment.setComment_id(userId);
         comment.setComment_writer(nickname);
         comment.setOrder_num(0);
-
+        commentMapper.insertComment(comment);
         return "댓글이 등록 되었습니다.";
     }
 }

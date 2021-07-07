@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.CommentMapper" >
+    <insert id="insertComment" parameterType="domain.Comment">
+        INSERT INTO
+            testdb.comment
+        VALUES
+            (
+                null,
+                #{board_seq},
+                (SELECT IFNULL(MAX(comment_seq)+1, 1) FROM testdb.comment c),
+                #{order_num},
+                #{comment_content},
+                #{comment_writer},
+                #{comment_id},
+                now()
+            )
+    </insert>
+</mapper>
