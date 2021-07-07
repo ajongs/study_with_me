@@ -60,4 +60,12 @@
         WHERE
             ins_user_id = #{id}
     </select>
+    <update id="increaseHit" parameterType="int">
+        UPDATE
+            testdb.board
+        SET
+            HIT = HIT + 1
+        WHERE
+            board_seq = #{seq}
+    </update>
 </mapper>

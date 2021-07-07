@@ -41,6 +41,7 @@ public class ExceptionController {
     public @ResponseBody ResponseEntity MalformedException(MalformedJwtException e){
         return new ResponseEntity(ErrorEnum.MALFORMED, HttpStatus.BAD_REQUEST);
     }
+    //파일 null 일때 에러
     @ExceptionHandler(NotFoundFileException.class)
     public @ResponseBody ResponseEntity NotFoundFileException(NotFoundFileException e){
         return new ResponseEntity(ErrorEnum.NOTFOUNDFILE, HttpStatus.BAD_REQUEST);

@@ -2,6 +2,7 @@ package controller;
 
 import annotation.Auth;
 import domain.Board;
+import domain.Comment;
 import exception.NotFoundFileException;
 import mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,19 @@ public class BoardController {
         return new ResponseEntity(boardService.uploadFile(file), HttpStatus.OK);
     }
     //이미지, 파일 다운로드
+
     //조회수 증가 api
+    @ResponseBody
+    @RequestMapping(value="/board/{seq}/hit", method=RequestMethod.GET)
+    public ResponseEntity increaseHit(@PathVariable int seq){
+        return new ResponseEntity(boardService.increaseHit(seq), HttpStatus.OK);
+    }
+    //댓글달기
+    @Auth
+    @ResponseBody
+    @RequestMapping(value = "/board/{seq}/comment", method = RequestMethod.POST)
+    public ResponseEntity insertComment(@PathVariable int seq, @RequestBody Comment comment){
+        return new ResponseEntity(boardService.insertComment(seq, comment),HttpStatus.OK);
+    }
+    //대댓글 달기
 }

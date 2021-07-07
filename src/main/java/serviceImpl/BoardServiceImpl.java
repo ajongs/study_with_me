@@ -1,6 +1,7 @@
 package serviceImpl;
 
 import domain.Board;
+import domain.Comment;
 import exception.NotFoundFileException;
 import exception.UnAuthorizedException;
 import mapper.BoardMapper;
@@ -99,5 +100,25 @@ public class BoardServiceImpl implements BoardService {
             file.transferTo(dest);
         }
         return url;
+    }
+
+    @Override
+    public String increaseHit(int seq) {
+        boardMapper.increaseHit(seq);
+        return "조회수가 증가되었습니다.";
+    }
+
+    @Override
+    public String insertComment(int seq, Comment comment) {
+        Map<String, Object> payload = userService.getTokenPayload();
+        String userId = payload.get("id").toString();
+        String nickname = payload.get("nickname").toString();
+
+        comment.setBoard_seq(seq);
+        comment.setComment_id(userId);
+        comment.setComment_writer(nickname);
+        comment.setOrder_num(0);
+
+        return "댓글이 등록 되었습니다.";
     }
 }

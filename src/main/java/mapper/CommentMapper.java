@@ -1,2 +1,4 @@
-package mapper;public interface CommentMapper {
+package mapper;
+
+public interface CommentMapper {
 }
