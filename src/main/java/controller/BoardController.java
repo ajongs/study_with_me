@@ -27,7 +27,7 @@ public class BoardController {
 
     //게시판 받아오기
     @ResponseBody
-    @RequestMapping(value = "/BoardList", method = RequestMethod.GET)
+    @RequestMapping(value = "/board", method = RequestMethod.GET)
     public ResponseEntity getBoardList() throws Exception {
         return new ResponseEntity(boardService.getBoardList(), HttpStatus.OK);
     }
@@ -78,4 +78,16 @@ public class BoardController {
         return new ResponseEntity(boardService.insertComment(seq, comment),HttpStatus.OK);
     }
     //대댓글 달기
+    @Auth
+    @ResponseBody
+    @RequestMapping(value = "/board/reply", method = RequestMethod.POST)
+    public ResponseEntity insertReply(@RequestBody Comment comment){
+        return new ResponseEntity(boardService.insertReply(comment),HttpStatus.OK);
+    }
+    //댓글 받아오기
+    @ResponseBody
+    @RequestMapping(value="/board/{seq}/comment", method = RequestMethod.GET)
+    public ResponseEntity getComment(@PathVariable int seq){
+        return new ResponseEntity(boardService.getComment(seq), HttpStatus.OK);
+    }
 }

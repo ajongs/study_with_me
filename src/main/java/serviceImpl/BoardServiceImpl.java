@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-//@Transactional(readOnly=true)
+@Transactional(readOnly=true)
 public class BoardServiceImpl implements BoardService {
     public static String prefixPath = "/upload/";
     @Autowired
@@ -124,4 +124,22 @@ public class BoardServiceImpl implements BoardService {
         commentMapper.insertComment(comment);
         return "댓글이 등록 되었습니다.";
     }
+
+    @Override
+    public String insertReply(Comment comment) {
+        Map<String, Object> payload = userService.getTokenPayload();
+        String userId = payload.get("id").toString();
+        String nickname = payload.get("nickname").toString();
+
+        comment.setComment_id(userId);
+        comment.setComment_writer(nickname);
+        commentMapper.insertReply(comment);
+        return "답글이 등록 되었습니다.";
+    }
+
+    @Override
+    public List<Comment> getComment(int seq) {
+        return commentMapper.getComment(seq);
+    }
+
 }

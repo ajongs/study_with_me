@@ -24,4 +24,8 @@ public interface BoardService {
     public String increaseHit(int seq);
     //댓글 등록
     public String insertComment(int seq, Comment comment);
+    //답글 등록
+    public String insertReply(Comment comment);
+    //댓글 받아오기
+    public List<Comment> getComment(int seq);
 }

@@ -26,6 +26,24 @@
             );
         UPDATE testdb.comment SET group_num = (SELECT last_insert_id()) WHERE comment_seq = (SELECT last_insert_id());
     </insert>
+    <insert id="insertReply" parameterType="domain.Comment">
+        INSERT INTO
+            testdb.comment
+        VALUES
+            (
+                null,
+                #{board_seq},
+                #{group_num},
+                #{order_num},
+                #{comment_content},
+                #{comment_writer},
+                #{comment_id},
+                now()
+            )
+    </insert>
+    <select id="getComment" parameterType="int" resultType="domain.Comment">
+        SELECT * FROM testdb.comment WHERE board_seq=#{seq} ORDER BY group_num, order_num
+    </select>
 </mapper>
-        <!--UPDATE testdb.comment SET group_num = (SELECT last_insert_id()) WHERE comment_seq = (SELECT last_insert_id());-->
+<!--UPDATE testdb.comment SET group_num = (SELECT last_insert_id()) WHERE comment_seq = (SELECT last_insert_id());-->
 <!-- (SELECT IFNULL(MAX(comment_seq)+1, 1) FROM testdb.comment c), -->
