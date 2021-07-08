@@ -7,17 +7,25 @@
 <mapper namespace="mapper.CommentMapper" >
     <insert id="insertComment" parameterType="domain.Comment">
         INSERT INTO
-            testdb.comment
+            testdb.comment(comment_seq,
+                           board_seq,
+                           order_num,
+                           comment_content,
+                           comment_writer,
+                           comment_id,
+                           comment_date)
         VALUES
             (
                 null,
                 #{board_seq},
-                (SELECT IFNULL(MAX(comment_seq)+1, 1) FROM testdb.comment c),
                 #{order_num},
                 #{comment_content},
                 #{comment_writer},
                 #{comment_id},
                 now()
-            )
+            );
+        UPDATE testdb.comment SET group_num = (SELECT last_insert_id()) WHERE comment_seq = (SELECT last_insert_id());
     </insert>
 </mapper>
+        <!--UPDATE testdb.comment SET group_num = (SELECT last_insert_id()) WHERE comment_seq = (SELECT last_insert_id());-->
+<!-- (SELECT IFNULL(MAX(comment_seq)+1, 1) FROM testdb.comment c), -->
