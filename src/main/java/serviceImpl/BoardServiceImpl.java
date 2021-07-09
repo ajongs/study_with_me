@@ -120,7 +120,6 @@ public class BoardServiceImpl implements BoardService {
         comment.setBoard_seq(seq);
         comment.setComment_id(userId);
         comment.setComment_writer(nickname);
-        comment.setOrder_num(0);
         commentMapper.insertComment(comment);
         return "댓글이 등록 되었습니다.";
     }

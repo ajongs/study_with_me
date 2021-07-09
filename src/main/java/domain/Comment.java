@@ -5,12 +5,12 @@ import java.sql.Timestamp;
 public class Comment {
     private int comment_seq;
     private int board_seq;
-    private int group_num;
-    private int order_num;
+    private int parent_seq;
     private String comment_content;
     private String comment_writer;
     private String comment_id;
     private Timestamp comment_date;
+    private boolean is_deleted;
 
     public int getComment_seq() {
         return comment_seq;
@@ -28,20 +28,12 @@ public class Comment {
         this.board_seq = board_seq;
     }
 
-    public int getGroup_num() {
-        return group_num;
+    public int getParent_seq() {
+        return parent_seq;
     }
 
-    public void setGroup_num(int group_num) {
-        this.group_num = group_num;
-    }
-
-    public int getOrder_num() {
-        return order_num;
-    }
-
-    public void setOrder_num(int order_num) {
-        this.order_num = order_num;
+    public void setParent_seq(int parent_seq) {
+        this.parent_seq = parent_seq;
     }
 
     public String getComment_content() {
@@ -74,5 +66,13 @@ public class Comment {
 
     public void setComment_date(Timestamp comment_date) {
         this.comment_date = comment_date;
+    }
+
+    public boolean isIs_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 }
