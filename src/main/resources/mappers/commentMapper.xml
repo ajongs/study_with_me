@@ -44,14 +44,18 @@
             )
     </insert>
     <select id="getComment" parameterType="int" resultType="domain.Comment">
-        SELECT * FROM testdb.comment WHERE board_seq=#{seq} ORDER BY group_num, order_num
+        SELECT * FROM testdb.comment
+        WHERE board_seq=#{seq}
+        ORDER BY group_num, order_num
     </select>
-    <delete id="deleteComment">
-
-    </delete>
-    <delete id="deleteReply">
-
-    </delete>
+    <update id="deleteComment" parameterType="Map">
+        UPDATE
+            testdb.comment
+        SET
+            is_deleted = true
+        WHERE
+            board_seq=#{board_seq} and comment_seq = #{comment_seq}
+    </update>
 </mapper>
 <!--UPDATE testdb.comment SET group_num = (SELECT last_insert_id()) WHERE comment_seq = (SELECT last_insert_id());-->
 <!-- (SELECT IFNULL(MAX(comment_seq)+1, 1) FROM testdb.comment c), -->

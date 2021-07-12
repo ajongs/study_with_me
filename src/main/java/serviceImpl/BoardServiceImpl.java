@@ -18,6 +18,7 @@ import util.JwtTokenProvider;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -139,6 +140,18 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<Comment> getComment(int seq) {
         return commentMapper.getComment(seq);
+    }
+
+    @Override
+    public String deleteComment(int board_seq, int comment_seq) {
+        //TODO 1. board_seq, comment_seq -> map으로 변경
+        //TODO 2. mapper 에서 is_deleted = true 로 변경
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("board_seq", board_seq);
+        map.put("comment_seq", comment_seq);
+
+        commentMapper.deleteComment(map);
+        return "댓글이 삭제되었습니다.";
     }
 
 }

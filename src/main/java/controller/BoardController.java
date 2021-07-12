@@ -90,4 +90,10 @@ public class BoardController {
     public ResponseEntity getComment(@PathVariable int seq){
         return new ResponseEntity(boardService.getComment(seq), HttpStatus.OK);
     }
+    //댓글 지우기
+    @ResponseBody
+    @RequestMapping(value="/board/{board_seq}/comment/{comment_seq}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteComment(@PathVariable int board_seq, @PathVariable int comment_seq){
+        return new ResponseEntity(boardService.deleteComment(board_seq, comment_seq), HttpStatus.OK);
+    }
 }

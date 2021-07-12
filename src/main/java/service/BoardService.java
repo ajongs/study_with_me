@@ -28,4 +28,6 @@ public interface BoardService {
     public String insertReply(Comment comment);
     //댓글 받아오기
     public List<Comment> getComment(int seq);
+    //댓글 삭제
+    public String deleteComment(int board_seq, int comment_seq);
 }
