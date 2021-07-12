@@ -168,4 +168,14 @@ public class BoardServiceImpl implements BoardService {
         map.put("comment_page", comment_page);
         return commentMapper.getCommentInPage(map);
     }
+
+    @Override
+    public List<Comment> getReply(int board_seq, int comment_seq) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("board_seq", board_seq);
+        map.put("comment_seq", comment_seq);
+
+        return commentMapper.getReply(map);
+
+    }
 }

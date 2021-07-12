@@ -64,7 +64,8 @@
             comment_content,
             comment_writer,
             comment_id,
-            comment_date
+            comment_date,
+            is_deleted
         FROM
             testdb.comment
         WHERE
@@ -72,6 +73,23 @@
         ORDER BY
             comment_seq
         LIMIT #{comment_page}, 10
+    </select>
+    <select id="getReply" parameterType="hashMap" resultType="domain.Comment">
+        SELECT
+            comment_seq,
+            board_seq,
+            parent_seq,
+            comment_content,
+            comment_writer,
+            comment_id,
+            comment_date,
+            is_deleted
+        FROM
+            testdb.comment
+        WHERE
+            parent_seq = #{comment_seq} AND board_seq = #{board_seq}
+        ORDER BY
+            comment_seq
     </select>
 </mapper>
 <!--UPDATE testdb.comment SET group_num = (SELECT last_insert_id()) WHERE comment_seq = (SELECT last_insert_id());-->

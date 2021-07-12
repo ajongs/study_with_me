@@ -32,4 +32,6 @@ public interface BoardService {
     public String deleteComment(int board_seq, int comment_seq);
     //댓글 페이징
     public List<Comment> getCommentInPage(int seq, int comment_page);
+    //대댓글 받아오기
+    public List<Comment> getReply(int board_seq, int comment_seq);
 }

@@ -84,7 +84,7 @@ public class BoardController {
     public ResponseEntity insertReply(@RequestBody Comment comment){
         return new ResponseEntity(boardService.insertReply(comment),HttpStatus.OK);
     }
-    //댓글 받아오기
+    //댓글 받아오기 todo 삭제해야함
     @ResponseBody
     @RequestMapping(value="/board/{seq}/comment", method = RequestMethod.GET)
     public ResponseEntity getComment(@PathVariable int seq){
@@ -98,8 +98,14 @@ public class BoardController {
     }
     //댓글 페이징 처리
     @ResponseBody
-    @RequestMapping(value="/board/{board_seq}/comment/{comment_page}", method = RequestMethod.GET)
+    @RequestMapping(value="/board/{board_seq}/commentPage/{comment_page}", method = RequestMethod.GET)
     public ResponseEntity getComment(@PathVariable int board_seq, @PathVariable int comment_page){
         return new ResponseEntity(boardService.getCommentInPage(board_seq,comment_page), HttpStatus.OK);
+    }
+    //대댓글 받아오기
+    @ResponseBody
+    @RequestMapping(value="/board/{board_seq}/comment/{comment_seq}/reply", method = RequestMethod.GET)
+    public ResponseEntity getReply(@PathVariable int board_seq, @PathVariable int comment_seq){
+        return new ResponseEntity(boardService.getReply(board_seq, comment_seq), HttpStatus.OK);
     }
 }
