@@ -154,4 +154,18 @@ public class BoardServiceImpl implements BoardService {
         return "댓글이 삭제되었습니다.";
     }
 
+    @Override
+    public List<Comment> getCommentInPage(int seq, int comment_page) {
+        //TODO 일단 페이징으로 10개를 보여준다 (부모들만)
+        //TODO 1들어왔을때 0-10
+        //TODO 2들어왔을때 10-10
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("board_seq", seq);
+        comment_page -= 1;
+        if(comment_page>0){
+            comment_page *= 10;
+        }
+        map.put("comment_page", comment_page);
+        return commentMapper.getCommentInPage(map);
+    }
 }

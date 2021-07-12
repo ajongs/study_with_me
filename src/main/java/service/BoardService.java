@@ -30,4 +30,6 @@ public interface BoardService {
     public List<Comment> getComment(int seq);
     //댓글 삭제
     public String deleteComment(int board_seq, int comment_seq);
+    //댓글 페이징
+    public List<Comment> getCommentInPage(int seq, int comment_page);
 }

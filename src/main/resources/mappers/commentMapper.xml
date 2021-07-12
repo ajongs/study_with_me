@@ -48,7 +48,7 @@
         WHERE board_seq=#{seq}
         ORDER BY group_num, order_num
     </select>
-    <update id="deleteComment" parameterType="Map">
+    <update id="deleteComment" parameterType="hashMap">
         UPDATE
             testdb.comment
         SET
@@ -56,6 +56,23 @@
         WHERE
             board_seq=#{board_seq} and comment_seq = #{comment_seq}
     </update>
+    <select id="getCommentInPage" parameterType="hashMap" resultType="domain.Comment">
+        SELECT
+            comment_seq,
+            board_seq,
+            parent_seq,
+            comment_content,
+            comment_writer,
+            comment_id,
+            comment_date
+        FROM
+            testdb.comment
+        WHERE
+            parent_seq = 0 AND board_seq = #{board_seq}
+        ORDER BY
+            comment_seq
+        LIMIT #{comment_page}, 10
+    </select>
 </mapper>
 <!--UPDATE testdb.comment SET group_num = (SELECT last_insert_id()) WHERE comment_seq = (SELECT last_insert_id());-->
 <!-- (SELECT IFNULL(MAX(comment_seq)+1, 1) FROM testdb.comment c), -->

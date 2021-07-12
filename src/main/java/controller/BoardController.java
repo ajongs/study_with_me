@@ -96,4 +96,10 @@ public class BoardController {
     public ResponseEntity deleteComment(@PathVariable int board_seq, @PathVariable int comment_seq){
         return new ResponseEntity(boardService.deleteComment(board_seq, comment_seq), HttpStatus.OK);
     }
+    //댓글 페이징 처리
+    @ResponseBody
+    @RequestMapping(value="/board/{board_seq}/comment/{comment_page}", method = RequestMethod.GET)
+    public ResponseEntity getComment(@PathVariable int board_seq, @PathVariable int comment_page){
+        return new ResponseEntity(boardService.getCommentInPage(board_seq,comment_page), HttpStatus.OK);
+    }
 }
