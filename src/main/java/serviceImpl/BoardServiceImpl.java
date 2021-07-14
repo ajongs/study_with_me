@@ -150,8 +150,16 @@ public class BoardServiceImpl implements BoardService {
         map.put("board_seq", board_seq);
         map.put("comment_seq", comment_seq);
 
-        commentMapper.deleteComment(map);
-        return "댓글이 삭제되었습니다.";
+        String commentUserId = commentMapper.getCommentUserId(map);
+        Map<String, Object> payload = userService.getTokenPayload();
+        String userId = payload.get("id").toString();
+
+        if(commentUserId.equals(userId)){
+            commentMapper.deleteComment(map);
+            return "댓글이 삭제되었습니다.";
+        }
+        else
+            throw new UnAuthorizedException();
     }
 
     @Override

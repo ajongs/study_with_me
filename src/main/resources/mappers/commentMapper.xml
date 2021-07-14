@@ -91,6 +91,11 @@
         ORDER BY
             comment_seq
     </select>
+    <select id="getCommentUserId" parameterType="hashMap" resultType="String">
+        SELECT comment_id
+        FROM testdb.comment
+        WHERE board_seq=#{board_seq} and comment_seq = #{comment_seq}
+    </select>
 </mapper>
 <!--UPDATE testdb.comment SET group_num = (SELECT last_insert_id()) WHERE comment_seq = (SELECT last_insert_id());-->
 <!-- (SELECT IFNULL(MAX(comment_seq)+1, 1) FROM testdb.comment c), -->

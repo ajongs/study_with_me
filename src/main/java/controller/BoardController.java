@@ -63,7 +63,7 @@ public class BoardController {
         return new ResponseEntity(boardService.uploadFile(file), HttpStatus.OK);
     }
     //이미지, 파일 다운로드
-
+    
     //조회수 증가 api
     @ResponseBody
     @RequestMapping(value="/board/{seq}/hit", method=RequestMethod.GET)
@@ -91,6 +91,7 @@ public class BoardController {
         return new ResponseEntity(boardService.getComment(seq), HttpStatus.OK);
     }
     //댓글 지우기
+    @Auth
     @ResponseBody
     @RequestMapping(value="/board/{board_seq}/comment/{comment_seq}", method = RequestMethod.DELETE)
     public ResponseEntity deleteComment(@PathVariable int board_seq, @PathVariable int comment_seq){
@@ -108,4 +109,5 @@ public class BoardController {
     public ResponseEntity getReply(@PathVariable int board_seq, @PathVariable int comment_seq){
         return new ResponseEntity(boardService.getReply(board_seq, comment_seq), HttpStatus.OK);
     }
+
 }

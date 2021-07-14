@@ -16,4 +16,5 @@ public interface CommentMapper {
     public void deleteReply(Map<String, Integer> map);
     public List<Comment> getCommentInPage(Map<String, Integer> map);
     public List<Comment> getReply(Map map);
+    public String getCommentUserId(Map map);
 }
