@@ -14,7 +14,4 @@ public interface UserService {
     public String getUserId();
     public Map<String, Object> getTokenPayload();
     User getUser(String id);
-    void insert(User user);
-    void update(User user);
-    void delete(User user);
 }

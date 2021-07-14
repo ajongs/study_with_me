@@ -87,22 +87,4 @@ public class UserServiceImpl implements UserService {
     public User getUser(String id){
         return usermapper.getUser(id);
     }
-
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @Override
-    public void insert(User user) {
-        usermapper.insert(user);
-    }
-
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @Override
-    public void update(User user) {
-        usermapper.update(user);
-    }
-
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    @Override
-    public void delete(User user) {
-        usermapper.delete(user);
-    }
 }

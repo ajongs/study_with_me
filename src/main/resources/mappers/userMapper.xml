@@ -16,17 +16,4 @@
         insert into testdb.user(seq, class_no, name, major, field, id, pw)
         values(null, #{class_no}, #{name}, #{major} , #{field}, #{id}, #{pw})
     </insert>
-    <insert id="insert" parameterType="domain.User">
-        insert into testdb.user(seq, class_no, name, major, field, id, pw)
-        values(null, #{class_no}, #{name}, #{major} , #{field}, #{id}, #{pw})
-    </insert>
-    <update id="update" parameterType="domain.User">
-        update testdb.user
-        set major = #{major}, field= #{field}, id=#{id}, pw=#{pw}
-        where class_no = #{class_no}
-    </update>
-    <delete id="delete" parameterType="domain.User">
-        delete from testdb.user
-        where class_no = #{class_no}
-    </delete>
 </mapper>

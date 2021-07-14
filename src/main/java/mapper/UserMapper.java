@@ -10,7 +10,4 @@ public interface UserMapper {
     void signUp(User user);
     List<User> getAllUsers();
     User getUser(String id);
-    void insert(User user);
-    void update(User user);
-    void delete(User user);
 }
