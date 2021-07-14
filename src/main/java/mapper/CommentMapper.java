@@ -1,10 +1,12 @@
 package mapper;
 
 import domain.Comment;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public interface CommentMapper {
     public void insertComment(Comment comment);
     public void insertReply(Comment comment);
