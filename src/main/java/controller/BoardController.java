@@ -5,8 +5,10 @@ import domain.Board;
 import domain.Comment;
 import exception.NotFoundFileException;
 import mapper.BoardMapper;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import service.BoardService;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
@@ -63,7 +67,12 @@ public class BoardController {
         return new ResponseEntity(boardService.uploadFile(file), HttpStatus.OK);
     }
     //이미지, 파일 다운로드
-    
+    @ResponseBody
+    @RequestMapping(value="/board/image/{fileName}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) throws IOException {
+        InputStream in = new FileInputStream("/upload/"+fileName+".jpg");
+        return new ResponseEntity(IOUtils.toByteArray(in), HttpStatus.OK);
+    }
     //조회수 증가 api
     @ResponseBody
     @RequestMapping(value="/board/{seq}/hit", method=RequestMethod.GET)
