@@ -1,6 +1,7 @@
 package controller;
 
 import domain.Library;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class LibraryController {
 
     @ResponseBody
     @RequestMapping(value="/book/{title}", method= RequestMethod.GET)
-    public ResponseEntity<Library> searchBook(@PathVariable String title) throws IOException, URISyntaxException {
+    public ResponseEntity<Library> searchBook(@PathVariable String title) throws IOException, URISyntaxException, ParseException {
         return new ResponseEntity(libraryService.searchBook(title), HttpStatus.OK);
     }
 

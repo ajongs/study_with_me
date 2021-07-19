@@ -8,8 +8,9 @@ public class Library {
     private int pageNum;
     private int pageSize;
     private String category;
-    private String sort;
-    private List<BookInfo> result;
+    //private String sort;
+    //private List<BookInfo> result;
+    private List<ParsingBookInfo> result;
 
     public int getTotal() {
         return total;
@@ -51,19 +52,12 @@ public class Library {
         this.category = category;
     }
 
-    public String getSort() {
-        return sort;
-    }
 
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
-    public List<BookInfo> getResult() {
+    public List<ParsingBookInfo> getResult() {
         return result;
     }
 
-    public void setResult(List<BookInfo> result) {
+    public void setResult(List<ParsingBookInfo> result) {
         this.result = result;
     }
 }
