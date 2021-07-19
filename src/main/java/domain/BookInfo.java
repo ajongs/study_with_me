@@ -5,6 +5,7 @@ public class BookInfo {
     private String typeName;
     private String placeInfo;
     private String authorInfo;
+    private String pubInfo;
     private String menuName;
     private String mediaName;
     private String manageName;
@@ -23,6 +24,14 @@ public class BookInfo {
     private String kdcCode1s;
     private String kdcName1s;
     private String classNo;
+
+    public String getPubInfo() {
+        return pubInfo;
+    }
+
+    public void setPubInfo(String pubInfo) {
+        this.pubInfo = pubInfo;
+    }
 
     public String getTitleInfo() {
         return titleInfo;
