@@ -29,8 +29,10 @@
     <context:component-scan base-package="controller"/>
     <context:component-scan base-package="mapper"/>
     <context:component-scan base-package="serviceImpl"/>
+    <context:component-scan base-package="configuration" />
     <context:component-scan base-package="aop"/>
     <context:component-scan base-package="util"/>
+    <context:property-placeholder location="classpath*:application.properties"/>
     <aop:aspectj-autoproxy/>
 
     <mvc:interceptors>
