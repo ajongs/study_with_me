@@ -118,5 +118,4 @@ public class BoardController {
     public ResponseEntity getReply(@PathVariable int board_seq, @PathVariable int comment_seq){
         return new ResponseEntity(boardService.getReply(board_seq, comment_seq), HttpStatus.OK);
     }
-
 }

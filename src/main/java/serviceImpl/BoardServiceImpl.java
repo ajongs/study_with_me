@@ -106,6 +106,7 @@ public class BoardServiceImpl implements BoardService {
         return url;
     }
 
+
     @Override
     public String increaseHit(int seq) {
         boardMapper.increaseHit(seq);

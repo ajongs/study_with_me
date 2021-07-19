@@ -20,7 +20,7 @@ public class BookInfo {
     private String regDate;
     private String detailLink;
     private String isbn;
-    private String calNo;
+    private String callNo;
     private String kdcCode1s;
     private String kdcName1s;
     private String classNo;
@@ -177,12 +177,12 @@ public class BookInfo {
         this.isbn = isbn;
     }
 
-    public String getCalNo() {
-        return calNo;
+    public String getCallNo() {
+        return callNo;
     }
 
-    public void setCalNo(String calNo) {
-        this.calNo = calNo;
+    public void setCallNo(String callNo) {
+        this.callNo = callNo;
     }
 
     public String getKdcCode1s() {
